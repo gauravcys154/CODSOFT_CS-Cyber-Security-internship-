@@ -1,0 +1,7 @@
+filesharing.db
+secret.key
+uploads/*.enc
+uploads/_tmp_*
+__pycache__/
+*.pyc
+cookies*.txt

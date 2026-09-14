@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Audit Log{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Audit Log (admin only) — last 200 events</h2>
+  <table>
+    <tr><th>Time (UTC)</th><th>Actor</th><th>Action</th><th>Detail</th></tr>
+    {% for log in logs %}
+    <tr>
+      <td>{{ log['ts'][:19].replace('T',' ') }}</td>
+      <td>{{ log['actor'] }}</td>
+      <td>{{ log['action'] }}</td>
+      <td>{{ log['detail'] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

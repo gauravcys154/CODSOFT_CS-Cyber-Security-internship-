@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="card" style="max-width:400px;margin:0 auto;">
+  <h2>Create Account</h2>
+  <form method="POST">
+    <label>Username</label>
+    <input type="text" name="username" required>
+    <label>Password (min 8 characters)</label>
+    <input type="password" name="password" required minlength="8">
+    <button type="submit">Register</button>
+  </form>
+  <p style="font-size:.85rem;margin-top:14px;">Already have an account? <a href="/login">Log in</a></p>
+</div>
+{% endblock %}

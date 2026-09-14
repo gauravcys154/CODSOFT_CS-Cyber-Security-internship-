@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="card" style="max-width:400px;margin:0 auto;">
+  <h2>Log In</h2>
+  <form method="POST">
+    <label>Username</label>
+    <input type="text" name="username" required>
+    <label>Password</label>
+    <input type="password" name="password" required>
+    <button type="submit">Log In</button>
+  </form>
+  <p style="font-size:.85rem;margin-top:14px;">No account? <a href="/register">Register here</a></p>
+  <p style="font-size:.75rem;color:#94a3b8;">Default admin (demo): admin / Admin@12345 — change immediately in real use.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{% block title %}Secure File Sharing{% endblock %}</title>
+<style>
+  :root{--navy:#0b1f3a;--blue:#1b4b91;--accent:#e11d48;--light:#f4f7fb;--green:#16a34a;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:#1a1a1a;}
+  header{background:linear-gradient(120deg,var(--navy),var(--blue));color:#fff;padding:18px 30px;
+         display:flex;justify-content:space-between;align-items:center;}
+  header a{color:#fff;text-decoration:none;font-weight:600;margin-left:16px;}
+  header h1{margin:0;font-size:1.3rem;}
+  main{max-width:900px;margin:30px auto;padding:0 20px;}
+  .card{background:#fff;border-radius:12px;padding:28px;box-shadow:0 4px 14px rgba(0,0,0,.06);}
+  input,select{width:100%;padding:10px;margin:6px 0 14px;border:1px solid #cbd5e1;border-radius:8px;}
+  label{font-weight:600;font-size:.9rem;color:var(--navy);}
+  button,.btn{background:var(--blue);color:#fff;border:none;padding:10px 20px;border-radius:8px;
+              cursor:pointer;font-weight:600;text-decoration:none;display:inline-block;}
+  button:hover,.btn:hover{background:var(--navy);}
+  table{width:100%;border-collapse:collapse;margin-top:16px;}
+  th,td{text-align:left;padding:10px;border-bottom:1px solid #e2e8f0;font-size:.9rem;}
+  .flash{background:#fef3c7;border-left:4px solid #d97706;padding:10px 14px;border-radius:6px;margin-bottom:14px;font-size:.9rem;word-break:break-all;}
+  .badge{font-size:.7rem;padding:2px 8px;border-radius:10px;background:#e2e8f0;color:#334155;}
+  .badge.shared{background:#dcfce7;color:var(--green);}
+</style>
+</head>
+<body>
+<header>
+  <h1>🔒 Secure File Sharing</h1>
+  <nav>
+    {% if session.get('user') %}
+      <span style="opacity:.85;">{{ session['user'] }} ({{ session['role'] }})</span>
+      {% if session['role']=='admin' %}<a href="/admin/audit">Audit Log</a>{% endif %}
+      <a href="/logout">Logout</a>
+    {% else %}
+      <a href="/login">Login</a><a href="/register">Register</a>
+    {% endif %}
+  </nav>
+</header>
+<main>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}{% for m in messages %}<div class="flash">{{ m }}</div>{% endfor %}{% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+</body>
+</html>

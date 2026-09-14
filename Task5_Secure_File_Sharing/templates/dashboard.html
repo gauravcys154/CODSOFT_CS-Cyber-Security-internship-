@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Upload a File</h2>
+  <form method="POST" action="/upload" enctype="multipart/form-data">
+    <label>File</label>
+    <input type="file" name="file" required>
+    <label>Visibility</label>
+    <select name="visibility">
+      <option value="private">Private (only me / admin)</option>
+      <option value="shared">Shared (visible to all logged-in users)</option>
+    </select>
+    <button type="submit">Upload &amp; Encrypt</button>
+  </form>
+</div>
+
+<div class="card" style="margin-top:20px;">
+  <h2>{{ 'All Files (admin view)' if role=='admin' else 'Your Files & Shared Files' }}</h2>
+  <table>
+    <tr><th>Name</th><th>Owner</th><th>Visibility</th><th>Uploaded</th><th>Actions</th></tr>
+    {% for f in files %}
+    <tr>
+      <td>{{ f['original_name'] }}</td>
+      <td>{{ f['owner'] }}</td>
+      <td><span class="badge {{ 'shared' if f['visibility']=='shared' else '' }}">{{ f['visibility'] }}</span></td>
+      <td>{{ f['uploaded_at'][:19].replace('T',' ') }} UTC</td>
+      <td>
+        <a class="btn" href="/download/{{ f['id'] }}">Download</a>
+        <form method="POST" action="/share/{{ f['id'] }}" style="display:inline;">
+          <button type="submit" style="background:#64748b;">Get temp link</button>
+        </form>
+      </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5">No files yet.</td></tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}
